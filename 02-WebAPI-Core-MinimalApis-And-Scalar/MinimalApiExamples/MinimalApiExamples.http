@@ -1,0 +1,23 @@
+﻿@MinimalApiExamples_HostAddress = https://localhost:7168
+
+GET {{MinimalApiExamples_HostAddress}}/todoitems
+
+###
+
+POST {{MinimalApiExamples_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "name":"walk dog",
+  "isComplete":true
+}
+###
+
+PUT {{MinimalApiExamples_HostAddress}}/todoitems/1
+Content-Type: application/json
+
+{
+  "name": "feed fish",
+  "isComplete": false
+}
+###
