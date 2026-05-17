@@ -1,0 +1,66 @@
+Входящий HTTP запрос:
+
+	BadHttpRequestException
+	OperationCanceledException (если запрос отменен)
+
+
+Маршрутизация и привязка модели:
+
+	RouteCreationException
+	AmbiguousMatchException (неоднозначное соответствие маршрута)
+	InvalidOperationException (ошибка в конфигурации маршрутизации)
+	FormatException (неправильный формат входных данных)
+	ArgumentException (некорректные аргументы)
+
+
+Валидация модели:
+
+	ValidationException
+
+
+Middleware:
+
+	MiddlewareException (общее исключение для ошибок в middleware)
+	Любые пользовательские исключения, определенные в middleware
+
+
+Контроллер/Endpoint:
+
+	UnauthorizedAccessException
+	NotImplementedException
+	Любые пользовательские исключения, определенные в бизнес-логике
+
+
+Доступ к базе данных через Entity Framework:
+
+	DbUpdateException (ошибка при обновлении базы данных)
+	DbUpdateConcurrencyException (конфликт параллельного доступа)
+	InvalidOperationException (некорректная операция с EF)
+	ObjectDisposedException (попытка использовать уже освобожденный контекст)
+	EntityException (общее исключение EF)
+	SqlException (исключения SQL Server)
+	DbEntityValidationException (ошибка валидации сущности)
+	NotSupportedException (неподдерживаемая операция в EF)
+
+
+Обработка результатов и сериализация:
+
+	JsonException (ошибка сериализации JSON)
+	SerializationException (общая ошибка сериализации)
+
+
+Отправка ответа:
+
+	IOException (ошибка ввода-вывода при отправке ответа)
+	OperationCanceledException (если отправка ответа отменена)
+
+
+
+Общие исключения, которые могут возникнуть на любом этапе:
+
+	ArgumentNullException
+	ArgumentOutOfRangeException
+	NullReferenceException
+	OutOfMemoryException
+	StackOverflowException
+	TimeoutException
