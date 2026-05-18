@@ -1,0 +1,50 @@
+@AspNet_ModelStateValidation_HostAddress = https://localhost:7276
+
+GET {{AspNet_ModelStateValidation_HostAddress}}/weatherforecast/
+Accept: application/json
+###
+
+POST {{AspNet_ModelStateValidation_HostAddress}}/api/Books/Example01
+Content-Type: application/json
+
+{
+    "Title": "100",
+    "Description": "Book description",
+    "ISBN": "1234567890123"
+}
+###
+
+POST {{AspNet_ModelStateValidation_HostAddress}}/api/Books/Example02
+Content-Type: application/json
+{
+    "Description": "Book description",
+    "ISBN": "123456789"
+}
+###
+
+POST {{AspNet_ModelStateValidation_HostAddress}}/api/Books/Example03
+Content-Type: application/json
+{
+    "Title": "",
+    "Description": "Book description",
+    "ISBN": "1234567890123456789"
+}
+###
+
+POST {{AspNet_ModelStateValidation_HostAddress}}/api/Books/Example04
+Content-Type: application/json
+{
+    "Title": "",
+    "Description": "Book description",
+    "ISBN": "1234567890123456789"
+}
+###
+
+POST {{AspNet_ModelStateValidation_HostAddress}}/api/Books/Example05
+Content-Type: application/json
+{
+    "Title": "MegaBook",
+    "Description": "MegaBook BlaBla",
+    "ISBN": "1234567890123456789"
+}
+###
