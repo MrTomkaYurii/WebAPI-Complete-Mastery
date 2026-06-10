@@ -1,0 +1,36 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information", // Базовий мінімальний рівень логування (все, що вище або = Information, буде логуватись)
+      "Override": {
+        "Microsoft": "Warning", // Для логів Microsoft показує лише Warning і вище (менше - ігнорується)
+        "Microsoft.AspNetCore.Hosting.Diagnostics": "Error", // Для хостингу ASP.NET логуються тільки помилки
+        "Microsoft.Hosting.Lifetime": "Information" // Для життєвого циклу хостингу залишаємо рівень Information
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "File", // Куди писати — у файл
+        "Args": {
+          "path": "C:\\Logs\\log.json", // Шлях до файлу логів. Папка Logs має існувати!
+          "rollingInterval": "Day", // Логи будуть зберігатись по днях: log20250918.json, log20250919.json і т.д.
+          "rollOnFileSizeLimit": true, // Якщо файл перевищить допустимий розмір, створиться новий
+          "formatter": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact" 
+          // Формат запису у компактному JSON-форматі (зручно для аналізу машинами)
+        }
+      },
+      {
+        "Name": "Seq", // Другий sink — Seq-сервер (система для візуалізації логів)
+        "Args": {
+          "serverUrl": "http://localhost:5341" // Адреса локального Seq-сервера
+        }
+      }
+    ],
+    "Enrich": [
+      "WithMachineName", // Додає у лог назву машини
+      "WithProcessId",   // Додає ідентифікатор процесу
+      "WithThreadId"     // Додає ідентифікатор потоку
+    ]
+  },
+  "AllowedHosts": "*" // Дозволені хости для ASP.NET Core (усі)
+}
