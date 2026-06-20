@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Example_01": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MONGODB_URI": "mongodb+srv://tomkayuriy:fiction@clustertomka.ujvkntv.mongodb.net/test"
+      }
+    }
+  }
+}

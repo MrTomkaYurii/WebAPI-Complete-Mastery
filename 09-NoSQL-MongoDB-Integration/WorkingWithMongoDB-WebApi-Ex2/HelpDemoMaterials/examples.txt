@@ -1,0 +1,59 @@
+Method: POST
+URL: https://localhost:44370/api/Students
+Body: {    
+    "firstName" : "John",
+    "lastName": "Dow",
+    "major": "Gravity"
+}
+
+Method : GET
+URL : https://localhost:44370/api/Students
+
+
+Method: PUT
+URL: https://localhost:44370/api/Students/6124f8a6e4b0a4e8e8a3e8b3
+Body: {    
+    "firstName" : "Jennie",
+    "lastName": "Dow",
+    "major": "Gravity"
+}
+
+
+Method : GET
+URL : https://localhost:44370/api/Students/6124f8a6e4b0a4e8e8a3e8b3
+
+
+Method: DELETE
+URL: https://localhost:44370/api/Students/6124f8a6e4b0a4e8e8a3e8b3
+
+
+Method : GET
+URL : https://localhost:44370/api/Students/6124f8a6e4b0a4e8e8a3e8b3
+
+
+===================================================
+Relationships Between MongoDB Documents
+===================================================
+
+Method: POST
+URL: https://localhost:44370/api/Course
+Body: { 
+    "name": "Gravity Diffusion",
+    "code": "GRD 101"
+}
+
+
+Method: POST
+URL: https://localhost:44370/api/Students
+Body: {    
+    "firstName" : "John",
+    "lastName": "Dow",
+    "major": "Gravity",
+    "courses: [
+        "6144f8a7e4b0a4e8e8a3e8b1"
+    ]
+}
+
+
+Method : GET
+URL : https://localhost:44370/api/Students/6224f8a6e4b0a4e8e8a3e811

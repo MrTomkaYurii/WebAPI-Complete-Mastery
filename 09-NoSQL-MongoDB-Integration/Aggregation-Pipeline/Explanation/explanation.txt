@@ -1,0 +1,72 @@
+﻿Метод .Aggregate() — запускає побудову Aggregation Pipeline. 
+У MongoDB це набір етапів (stages), які послідовно обробляють документи:
+        Match — фільтрація (аналог WHERE).
+        Group — групування (аналог GROUP BY).
+        Project — вибір тільки певних полів.
+        Lookup — джойн з іншою колекцією (аналог JOIN).
+        Sort, Limit, Skip тощо.
+
+var students = await _studentCollection
+    .Aggregate()
+    .Match(s => s.Age > 18)         // етап 1: фільтруємо студентів
+    .Project(s => new { s.Name })   // етап 2: вибираємо тільки поле Name
+    .ToListAsync();
+
+db.Students.aggregate([
+  { $match: { Age: { $gt: 18 } } },
+  { $project: { Name: 1 } }
+])
+
+
+.Lookup<TForeign, TOutput>(string from, 
+string localField, 
+string foreignField, 
+string @as)
+
+
+| Параметр       | Що це                                                                       | Пояснення на твоєму прикладі                                              |
+| -------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `from`         | Назва колекції, з якою об’єднуємо                                           | `"Courses"` — колекція, де зберігаються документи з інформацією про курси |
+| `localField`   | Поле поточної колекції (студентів), яке містить посилання на інший документ | `"Courses"` — у студента це масив ObjectId курсів                         |
+| `foreignField` | Поле у колекції `from`, з яким порівнюємо `localField`                      | `"_id"` — у колекції `Courses` ідентифікатор курсу                        |
+| `as`           | Назва нового поля, куди Mongo покладе знайдені документи                    | `"StudentCourses"` — це нове поле у студента, де будуть повні дані курсів |
+
+
+.Lookup<Student, Student>(
+    "Courses",      // from: беремо колекцію "Courses"
+    "Courses",      // localField: масив ObjectId курсів у студента
+    "_id",          // foreignField: поле _id у Courses
+    "StudentCourses" // as: нове поле, де будуть повні документи курсів
+);
+
+
+SELECT s.*, c.*
+FROM Students s
+LEFT JOIN Courses c
+ON c._id IN s.Courses
+
+
+localField → s.Courses
+foreignField → c._id
+from → таблиця Courses
+as → нове поле для результату (StudentCourses)
+
+
+Колекція Students                 Колекція Courses
+--------------------               --------------------
+| _id: 1            |               | _id: 101       |
+| FirstName: John   |               | Name: Networks |
+| Courses: [101,102]|               | Code: ECEN 474 |
+--------------------               --------------------
+        |                                  |
+        | Lookup по Courses -> _id         |
+        |                                  |
+        v
+--------------------
+| _id: 1            |
+| FirstName: John   |
+| StudentCourses: [ | 
+|   { _id:101, Name: Networks, Code: ECEN 474 }, 
+|   { _id:102, Name: Power Systems, Code: ECEN 485 } 
+| ]                 |
+--------------------
